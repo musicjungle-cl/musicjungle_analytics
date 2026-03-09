@@ -1,8 +1,14 @@
 import streamlit as st
 import pandas as pd
+import os
 
-sales = pd.read_csv("../data/sales.csv")
+DATA_PATH = "../data/sales.csv"
 
+if not os.path.exists(DATA_PATH):
+    st.warning("No hay datos todavía. Ejecuta primero extract_data.py")
+    st.stop()
+
+sales = pd.read_csv(DATA_PATH)
 ventas = sales["product_net_revenue"].sum()
 unidades = sales["product_qty"].sum()
 
